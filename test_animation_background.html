@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #info {
+                position: absolute;
+                top: 45%; width: 100%;
+				font-family: 'Courier New', monospace;
+
+                padding: 5px;
+                text-align: center;
+                font-size: 50px;
+                color: #6f7896;
+            }
+
+            body {
+                /*background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);*/
+                background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                margin: 0px;
+                overflow: hidden;
+            }
+
+            button {
+                border: none;
+                color: #6f7896;
+                background-color: Transparent;
+                border-radius: 8px;
+                transition-duration: 0.4s;
+                /* Safari */
+                transition-duration: 0.4s;
+                border: 1px solid #6f7896;
+            }
+
+            button:hover {
+                border: 1px solid #96B9F2;
+                background-color: Transparent;
+                color: #6f7896;
+                box-shadow: 0 5px 20px 0 rgba( 0, 0, 0, 0.54), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id='info'> DESCENDANTS<br>OF THE ABACUS <br>
+        </div>
+        <script src="https://threejs.org/build/three.min.js"></script>
+		<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+		<script src="https://threejs.org/examples/js/libs/dat.gui.min.js"></script>
+        
+        <script>
+            javascript:(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+            
+            var camera, scene, renderer, geometry, material, mesh, cylinder_group, box_group, controls;
+			var PI = 3.1415926;
+			init();
+			animate();
+
+			function init() {
+
+				var width = window.innerWidth;
+				var height = window.innerHeight;
+
+				/* renderer = new THREE.WebGLRenderer({
+				  alpha: true
+				}); */
+				renderer = new THREE.WebGLRenderer({
+				  setClearColor:0x000000,
+				});
+				document.body.appendChild (renderer.domElement);
+				renderer.setSize (width, height);
+
+
+				scene = new THREE.Scene();
+
+				const light_ambient = new THREE.AmbientLight( 0xeef3ff );//0xeef2ff
+				scene.add( light_ambient );
+
+				camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
+				//camera.position.z = 550;
+				camera.position.z = 180;
+				//helper = new THREE.CameraHelper( camera );
+				//scene.add( helper );
+
+				//camera.lookAt(new THREE.Vector3(150, 150, -450))
+				camera.lookAt(new THREE.Vector3(150, 150, -450))
+				scene.add(camera);
+
+
+				cylinder_radius = 120;
+				geometry = new THREE.SphereGeometry(cylinder_radius-1, 100, 100);
+				material = new THREE.MeshLambertMaterial({
+				  color: 0xeef6ff,
+				  flatShading: true,
+				});
+
+				mesh = new THREE.Mesh(geometry, material);
+				mesh.receiveShadow = true;
+				mesh.castShadow = true;
+				mesh.position.y += 50;
+				scene.add(mesh);
+
+				cylinder_group = new THREE.Group();
+				divide = 70;
+				for(i = 1 ; i < 71; i++){
+				  geometry_cy = new THREE.CylinderGeometry( cylinder_radius, cylinder_radius, 1, 100 );
+				  material_cy = new THREE.MeshLambertMaterial({
+				  color: 0xffffff,
+				  flatShading: true,
+				});
+
+				  cylinder_group[i] = new THREE.Mesh(geometry_cy, material_cy);
+
+				  cylinder_group[i].rotation.z += i*(Math.PI/divide);
+				  cylinder_group[i].receiveShadow = true;
+				  cylinder_group[i].castShadow = true;
+				  cylinder_group.add(cylinder_group[i])
+
+				}
+				cylinder_group.rotation.x += PI/4;
+				cylinder_group.rotation.y += PI/4;
+				cylinder_group.position.y += 50;
+				scene.add(cylinder_group)
+
+				
+				cylinder_radius = 110;
+				geometry_cy_horizon = new THREE.CylinderGeometry( 155/2-10, 155/2-10, 155, 100 );
+				material_cy_horizon = new THREE.MeshLambertMaterial({
+				  color: 0xeef6ff,
+				  flatShading: true,
+				});
+
+				mesh_cy_horizon = new THREE.Mesh(geometry_cy_horizon, material_cy_horizon);
+				mesh_cy_horizon.position.x = 100;
+				mesh_cy_horizon.position.z = 120;
+				mesh_cy_horizon.receiveShadow = true;
+				mesh_cy_horizon.castShadow = true;
+				//scene.add(mesh_cy_horizon);
+
+				box_group = new THREE.Group();
+				divide_2 = 80;
+				for(i = 1 ; i < 81; i++){
+				  geometry_bx = new THREE.BoxGeometry( 155, 1, 155 );
+				  material_bx = new THREE.MeshLambertMaterial({
+					color: 0xffffff,
+					flatShading: true,
+				  });
+
+				  box_group[i] = new THREE.Mesh(geometry_bx, material_bx);
+
+				  box_group[i].rotation.z += i*(Math.PI/divide_2);
+				  box_group[i].receiveShadow = true;
+				  box_group[i].castShadow = true;
+				  box_group.add(box_group[i])
+
+				}
+				//box_group.rotation.x += PI/8;
+				//box_group.rotation.y += PI/6;
+				box_group.rotation.x += PI/2.3;
+				box_group.rotation.y -= PI/10;
+				box_group.position.x = 110;
+				box_group.position.z = 150;
+				scene.add(box_group)
+
+
+				spotLight = new THREE.SpotLight( 0x2c2c2c );
+				spotLight.castShadow = true;
+				//spotLight.position.set( -650, -400, 580 );
+				spotLight.position.set( -250, -300, 60 );
+				//spotLight.shadow.mapSize.width = 524;
+				//spotLight.shadow.mapSize.height = 524;
+				spotLight.shadow.mapSize.width = 50;
+				spotLight.shadow.mapSize.height = 50;
+					//spotLight.angle = 0.5;
+				spotLight.angle = 0.35;
+				//spotLight.shadow.camera.near = 100;
+				spotLight.shadow.camera.near = 50;
+				//spotLight.shadow.camera.far = 4000;
+				spotLight.shadow.camera.far = 200;
+				spotLight.shadow.camera.fov = 10;
+
+				scene.add( spotLight );
+
+				//spotLightHelper = new THREE.SpotLightHelper( spotLight );
+				//scene.add( spotLightHelper );
+
+				document.body.appendChild(renderer.domElement);
+
+				//controls = new THREE.OrbitControls( camera, renderer.domElement);
+
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame(animate);
+				render();
+
+			}
+
+			function render() {
+
+				cylinder_group.rotation.z -= 0.0001;
+				box_group.rotation.z += 0.0001;
+				renderer.render(scene, camera);
+
+			}
+
+        </script>
+    </body>
+</html>
