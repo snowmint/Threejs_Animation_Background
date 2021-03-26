@@ -1,0 +1,444 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.5.17",
+        "version" : "2.0"
+    },
+    "extensionsUsed" : [
+        "KHR_lights_punctual"
+    ],
+    "extensionsRequired" : [
+        "KHR_lights_punctual"
+    ],
+    "extensions" : {
+        "KHR_lights_punctual" : {
+            "lights" : [
+                {
+                    "color" : [
+                        1,
+                        1,
+                        1
+                    ],
+                    "intensity" : 1000,
+                    "type" : "point",
+                    "name" : "Light"
+                },
+                {
+                    "color" : [
+                        1,
+                        1,
+                        1
+                    ],
+                    "intensity" : 5,
+                    "type" : "directional",
+                    "name" : "Sun"
+                }
+            ]
+        }
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                1,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                10,
+                11
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "extensions" : {
+                "KHR_lights_punctual" : {
+                    "light" : 0
+                }
+            },
+            "name" : "Light_Orientation",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ]
+        },
+        {
+            "children" : [
+                0
+            ],
+            "name" : "Light",
+            "rotation" : [
+                0.16907575726509094,
+                0.7558803558349609,
+                -0.27217137813568115,
+                0.570947527885437
+            ],
+            "translation" : [
+                -0.009672313928604126,
+                5.486396312713623,
+                1.6006033420562744
+            ]
+        },
+        {
+            "camera" : 0,
+            "name" : "Camera_Orientation",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ]
+        },
+        {
+            "children" : [
+                2
+            ],
+            "name" : "Camera",
+            "translation" : [
+                0,
+                6.853953838348389,
+                0
+            ]
+        },
+        {
+            "name" : "Empty"
+        },
+        {
+            "mesh" : 0,
+            "name" : "Plane",
+            "translation" : [
+                -3.0002150535583496,
+                0,
+                1.5001075267791748
+            ]
+        },
+        {
+            "name" : "Lattice",
+            "scale" : [
+                12.085983276367188,
+                12.085983276367188,
+                12.085983276367188
+            ],
+            "translation" : [
+                -3.670438766479492,
+                -0.7712728381156921,
+                1.4375313520431519
+            ]
+        },
+        {
+            "name" : "Empty.001",
+            "scale" : [
+                9.849161148071289,
+                9.849161148071289,
+                9.849161148071289
+            ],
+            "translation" : [
+                0,
+                -7.986827373504639,
+                0
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "Plane.001",
+            "rotation" : [
+                0,
+                -0.03410235792398453,
+                0,
+                0.9994184374809265
+            ],
+            "translation" : [
+                5.133218288421631,
+                1.8300457000732422,
+                1.129972219467163
+            ]
+        },
+        {
+            "extensions" : {
+                "KHR_lights_punctual" : {
+                    "light" : 1
+                }
+            },
+            "name" : "Sun_Orientation",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ]
+        },
+        {
+            "children" : [
+                9
+            ],
+            "name" : "Sun",
+            "rotation" : [
+                -0.17293545603752136,
+                0.7838340997695923,
+                0.26447394490242004,
+                0.5345568060874939
+            ],
+            "translation" : [
+                -0.5445230007171631,
+                0,
+                -0.13882672786712646
+            ]
+        },
+        {
+            "name" : "Area",
+            "rotation" : [
+                -0.5286799669265747,
+                0,
+                0,
+                -0.848821222782135
+            ],
+            "scale" : [
+                4.851705551147461,
+                4.851706027984619,
+                4.851706027984619
+            ],
+            "translation" : [
+                2.1185555458068848,
+                -0.557955265045166,
+                9.612316131591797
+            ]
+        }
+    ],
+    "cameras" : [
+        {
+            "name" : "Camera",
+            "perspective" : {
+                "aspectRatio" : 2.5949367088607596,
+                "yfov" : 0.2757036464884432,
+                "zfar" : 100,
+                "znear" : 0.10000000149011612
+            },
+            "type" : "perspective"
+        }
+    ],
+    "animations" : [
+        {
+            "channels" : [
+                {
+                    "sampler" : 0,
+                    "target" : {
+                        "node" : 7,
+                        "path" : "translation"
+                    }
+                }
+            ],
+            "name" : "Animation",
+            "samplers" : [
+                {
+                    "input" : 8,
+                    "interpolation" : "LINEAR",
+                    "output" : 9
+                }
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "Material.001",
+            "pbrMetallicRoughness" : {
+                "metallicFactor" : 0
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "Material.002",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.23955172300338745,
+                    0.23955172300338745,
+                    0.23955172300338745,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.40594059228897095
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Plane",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Plane.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 1
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 11,
+            "max" : [
+                3.9384777545928955,
+                0,
+                7.222090721130371
+            ],
+            "min" : [
+                -5.287792682647705,
+                0,
+                -2.721620559692383
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 11,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 11,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 27,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 8,
+            "max" : [
+                4.298151969909668,
+                0,
+                3.721578359603882
+            ],
+            "min" : [
+                -4.207573890686035,
+                0,
+                -6.084576606750488
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 8,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 8,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 18,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 62,
+            "max" : [
+                2.5
+            ],
+            "min" : [
+                -0.041666666666666664
+            ],
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 62,
+            "type" : "VEC3"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 132,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 132,
+            "byteOffset" : 132
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 88,
+            "byteOffset" : 264
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 54,
+            "byteOffset" : 352
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 96,
+            "byteOffset" : 408
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 96,
+            "byteOffset" : 504
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 64,
+            "byteOffset" : 600
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 36,
+            "byteOffset" : 664
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 248,
+            "byteOffset" : 700
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 744,
+            "byteOffset" : 948
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 1692,
+            "uri" : "data:application/octet-stream;base64,EjXUvwAAAABeG+dABRB8QAAAAACFezVAmTWpwAAAAAAM4pi/156SvwAAAAAILy7AV3B2PgAAAABNxB/AnQLAPwAAAABONey/7a0rQAAAAADRQWS/ANdzQAAAAAB+x4c/wGpeQAAAAABK9AY+0llGQAAAAAC5td2+TsEQQAAAAACyiaC/AAAAAP//f78AAACAAAAAAP//f78AAACAAAAAAP//f78AAACAAAAAAP//f78AAACAAAAAAP//f78AAACAAAAAAP//f78AAACAAAAAAP//f78AAACAAAAAAP//f78AAACAAAAAAP//f78AAACAAAAAAP//f78AAACAAAAAAP//f78AAACAAAAAAAAAgD8AAAAAAACAPwAAAAAAAIA/AAAAAAAAgD8AAAAAAACAPwAAAAAAAIA/AAAAAAAAgD8AAAAAAACAPwAAAAAAAIA/AAAAAAAAgD8AAAAAAACAPwAAAgADAAMABAAFAAUACgAGAAYACQAIAAgABwABAAEAAAADAAMABQAGAAYACAABAAMABgABAAAAcqSGwAAAAABRvWFAcg+6PwAAAABXLm5ABgdHwAAAAADatMLAdoqJQAAAAAA0SnjA4R+CwAAAAAAroBJAGePoPwAAAADgnS9AwVp5QAAAAADoijPAwvRQwAAAAACEPZfAAAAAAAAAgL8AAACAAAAAAAAAgL8AAACAAAAAAAAAgL8AAACAAAAAAAAAgL8AAACAAAAAAAAAgL8AAACAAAAAAAAAgL8AAACAAAAAAAAAgL8AAACAAAAAAAAAgL8AAACAAAAAAAAAgD8AAAAAAACAPwAAAAAAAIA/AAAAAAAAgD8AAAAAAACAPwAAAAAAAIA/AAAAAAAAgD8AAAAAAACAPwQABQABAAQAAQAAAAcABgAFAAcABQAEAAIAAwAGAAIABgAHAKuqKr0AAAAAq6oqPauqqj0AAAA+q6oqPlVVVT4AAIA+VVWVPquqqj4AAMA+VVXVPquq6j4AAAA/q6oKP1VVFT8AACA/q6oqP1VVNT8AAEA/q6pKP1VVVT8AAGA/q6pqP1VVdT8AAIA/VVWFP6uqij8AAJA/VVWVP6uqmj8AAKA/VVWlP6uqqj8AALA/VVW1P6uquj8AAMA/VVXFP6uqyj8AANA/VVXVP6uq2j8AAOA/VVXlP6uq6j8AAPA/VVX1P6uq+j8AAABAq6oCQFVVBUAAAAhAq6oKQFVVDUAAABBAq6oSQFVVFUAAABhAq6oaQFVVHUAAACBAAAAAAAAAAMEAAACAAAAAABeU/8AAAACAAAAAADUk/8AAAACAAAAAANSw/sAAAACAAAAAAF86/sAAAACAAAAAACrB/cAAAACAAAAAAIFF/cAAAACAAAAAAKPH/MAAAACAAAAAAMdH/MAAAACAAAAAAB/G+8AAAACAAAAAANRC+8AAAACAAAAAAA2++sAAAACAAAAAAOw3+sAAAACAAAAAAJGw+cAAAACAAAAAABYo+cAAAACAAAAAAJee+MAAAACAAAAAACoU+MAAAACAAAAAAOSI98AAAACAAAAAANz89sAAAACAAAAAACNw9sAAAACAAAAAAMni9cAAAACAAAAAAONU9cAAAACAAAAAAH7G9MAAAACAAAAAAKo39MAAAACAAAAAAHWo88AAAACAAAAAAO0Y88AAAACAAAAAACCJ8sAAAACAAAAAABn58cAAAACAAAAAAOho8cAAAACAAAAAAJjY8MAAAACAAAAAADVI8MAAAACAAAAAAMy378AAAACAAAAAAGkn78AAAACAAAAAABqX7sAAAACAAAAAAOkG7sAAAACAAAAAAOJ27cAAAACAAAAAABTn7MAAAACAAAAAAI5X7MAAAACAAAAAAFfI68AAAACAAAAAAIM568AAAACAAAAAAB6r6sAAAACAAAAAADcd6sAAAACAAAAAAN6P6cAAAACAAAAAACUD6cAAAACAAAAAAB136MAAAACAAAAAANfr58AAAACAAAAAAGth58AAAACAAAAAAOvX5sAAAACAAAAAAHBP5sAAAACAAAAAABXI5cAAAACAAAAAAPRB5cAAAACAAAAAAC295MAAAACAAAAAAOI55MAAAACAAAAAADm448AAAACAAAAAAF4448AAAACAAAAAAIC64sAAAACAAAAAANc+4sAAAACAAAAAAKLF4cAAAACAAAAAAC1P4cAAAACAAAAAAMzb4MAAAACAAAAAAOhr4MAAAACAAAAAAAAA4MAAAACA"
+        }
+    ]
+}

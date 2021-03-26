@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #info {
+                position: absolute;
+                top: 45%; width: 100%;
+				font-family: 'Courier New', monospace;
+
+                padding: 5px;
+                text-align: center;
+                font-size: 50px;
+                color: #6f7896;
+            }
+
+            body {
+                /*background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);*/
+                background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                margin: 0px;
+                overflow: hidden;
+            }
+
+            button {
+                border: none;
+                color: #6f7896;
+                background-color: Transparent;
+                border-radius: 8px;
+                transition-duration: 0.4s;
+                /* Safari */
+                transition-duration: 0.4s;
+                border: 1px solid #6f7896;
+            }
+
+            button:hover {
+                border: 1px solid #96B9F2;
+                background-color: Transparent;
+                color: #6f7896;
+                box-shadow: 0 5px 20px 0 rgba( 0, 0, 0, 0.54), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+            }
+        </style>
+    </head>
+
+    <body>
+<!--
+        <div id='info'> DESCENDANTS<br>OF THE ABACUS <br>
+        </div>
+-->
+        <script src="./three.js/build/three.min.js"></script>
+		<script src="./three.js/examples/js/controls/OrbitControls.js"></script>
+		<script src="./three.js/examples/js/libs/fflate.min.js"></script>
+		<script
+		  src="./three.js/examples/js/loaders/FBXLoader.js"
+		  ></script>
+		<script src="./three.js/examples/js/loaders/MTLLoader.js"></script>
+    	<script src="./three.js/examples/js/loaders/OBJLoader.js"></script>
+		<script src="./three.js/examples/js/loaders/FBXLoader.js"></script>
+		<script src="./three.js/examples/js/libs/dat.gui.min.js"></script>
+		
+        
+        <script >
+//			import * as THREE from '../build/three.module.js';
+//
+//			import Stats from './jsm/libs/stats.module.js';
+//
+//			import { OrbitControls } from './jsm/controls/OrbitControls.js';
+//			import { FBXLoader } from './jsm/loaders/FBXLoader.js';
+			
+            javascript:(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+            
+            var camera, scene, renderer, geometry, material, mesh, cylinder_group, box_group, controls;
+			var PI = 3.1415926;
+			init();
+			animate();
+			
+			function loadCubemap() {
+                var path = "./yuhi/";
+                var format = ".bmp";
+                var urls = [
+                    path + 'posx' + format, path + 'negx' + format,
+                    path + 'posy' + format, path + 'negy' + format,
+                    path + 'posz' + format, path + 'negz' + format
+                    ];
+                var loader = new THREE.CubeTextureLoader();
+                loader.setCrossOrigin ('');
+                var cubeMap = loader.load(urls);
+                cubeMap.format = THREE.RGBFormat;
+                return cubeMap;
+            }
+
+			function init() {
+
+				var width = window.innerWidth;
+				var height = window.innerHeight;
+				
+				renderer = new THREE.WebGLRenderer({
+				  alpha: true
+				});
+//				renderer = new THREE.WebGLRenderer({
+//				  setClearColor:0xffffff,
+//				});
+				document.body.appendChild (renderer.domElement);
+				renderer.setSize (width, height);
+
+
+				scene = new THREE.Scene();
+				
+				var cubeMap = loadCubemap();
+                scene.background = cubeMap;
+
+				const light_ambient = new THREE.AmbientLight( 0xeef3ff );//0xeef2ff
+				scene.add( light_ambient );
+
+				camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
+				//camera.position.z = 550;
+				camera.position.z = 180;
+				//helper = new THREE.CameraHelper( camera );
+				//scene.add( helper );
+
+				//camera.lookAt(new THREE.Vector3(150, 150, -450))
+				camera.lookAt(new THREE.Vector3(150, 150, -450))
+				scene.add(camera);
+				
+				var onProgress = function(xhr) {
+					if (xhr.lengthComputable) {
+					  var percentComplete = xhr.loaded / xhr.total * 100;
+					  console.log(Math.round(percentComplete, 2) + '% downloaded');
+					}
+				};
+				var onError = function(xhr) {};
+				var fbx_loader = new THREE.FBXLoader();
+				
+//				fbx_loader.load('./banner_facebook.fbx', function(object) {
+//					object.position.set(0, 0, 0);
+//					object.scale.multiplyScalar(1);
+//					scene.add(object);
+//				}, onProgress, onError);
+				
+				fbx_loader.load('./banner_facebook.fbx', function(object) {
+					object.mixer = new THREE.AnimationMixer(object);
+					mixers.push(object.mixer);
+					var action = object.mixer.clipAction(object.animations[0]);
+					action.play();
+					object.position.set(0, 0, 0);
+					object.scale.multiplyScalar(1);
+					scene.add(object);
+				}, onProgress, onError);
+
+
+//				spotLight = new THREE.SpotLight( 0x2c2c2c );
+//				spotLight.castShadow = true;
+//				//spotLight.position.set( -650, -400, 580 );
+//				spotLight.position.set( -250, -300, 60 );
+//				//spotLight.shadow.mapSize.width = 524;
+//				//spotLight.shadow.mapSize.height = 524;
+//				spotLight.shadow.mapSize.width = 50;
+//				spotLight.shadow.mapSize.height = 50;
+//					//spotLight.angle = 0.5;
+//				spotLight.angle = 0.35;
+//				//spotLight.shadow.camera.near = 100;
+//				spotLight.shadow.camera.near = 50;
+//				//spotLight.shadow.camera.far = 4000;
+//				spotLight.shadow.camera.far = 200;
+//				spotLight.shadow.camera.fov = 10;
+//
+//				scene.add( spotLight );
+
+				//spotLightHelper = new THREE.SpotLightHelper( spotLight );
+				//scene.add( spotLightHelper );
+
+				document.body.appendChild(renderer.domElement);
+
+				controls = new THREE.OrbitControls( camera, renderer.domElement);
+
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame(animate);
+				render();
+
+			}
+
+			function render() {
+
+				//cylinder_group.rotation.z -= 0.0001;
+				//box_group.rotation.z += 0.0001;
+				renderer.render(scene, camera);
+
+			}
+
+        </script>
+    </body>
+</html>
