@@ -53,6 +53,7 @@
             javascript:(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
             
             var camera, scene, renderer, geometry, material, mesh, cylinder_group, box_group, controls;
+			var model_left, model_right;
 			var PI = 3.1415926;
 			init();
 			animate();
@@ -65,29 +66,21 @@
 				renderer = new THREE.WebGLRenderer({
 				  alpha: true
 				});
-//				renderer = new THREE.WebGLRenderer({
-//				  setClearColor:0xffffff,
-//				});
 				document.body.appendChild (renderer.domElement);
 				renderer.setSize (width, height);
 
 
 				scene = new THREE.Scene();
 
-				const light_ambient = new THREE.AmbientLight( 0x505050 );//0xeef2ff
+				const light_ambient = new THREE.AmbientLight( 0xb2b2b2 );//0xeef2ff
 				scene.add( light_ambient );
 
 				camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
-				//camera.position.z = 550;
-				//camera.position.z = 180;
 				//helper = new THREE.CameraHelper( camera );
 				//scene.add( helper );
-				camera.position.set(0.33291721047596984, 4.434839884179011,  0.4764456610324276)
-				camera.rotation.set( -1.5136907401283735, -0.00134673615883944, -0.02355326008422458);
+				camera.position.set(3.0369324502533273, 18.250902764939834,  3.517177065084309)
+				camera.rotation.set( -1.450221666884361, 0.0017957098686750806, 0.01481959378935485);
 				
-
-				//camera.lookAt(new THREE.Vector3(150, 150, -450))
-				//camera.lookAt(new THREE.Vector3(150, 150, -450))
 				scene.add(camera);
 				
 				// model
@@ -96,11 +89,39 @@
 				// load a resource
 				loader.load(
 					// resource URL
-					'./banner_facebook/banner_facebook.obj',
+					'./banner_facebook/banner_facebook_left.obj',
 					// called when resource is loaded
 					function ( object ) {
 						object.position.set(0,0,0);
-						scene.add( object );
+						object.scale.set(5, 5, 5);
+						model_left = object;
+						scene.add( model_left );
+
+					},
+					// called when loading is in progresses
+					function ( xhr ) {
+
+						console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+					},
+					// called when loading has errors
+					function ( error ) {
+
+						console.log( 'An error happened' );
+
+					}
+				);
+				
+				// load a resource
+				loader.load(
+					// resource URL
+					'./banner_facebook/banner_facebook_right.obj',
+					// called when resource is loaded
+					function ( object ) {
+						object.position.set(0,0,0);
+						object.scale.set(5, 5, 5);
+						model_right = object;
+						scene.add( model_right );
 
 					},
 					// called when loading is in progresses
@@ -118,32 +139,89 @@
 				);
 
 
-				spotLight = new THREE.SpotLight( 0xf0f0f0 );
-				spotLight.castShadow = true;
-				//spotLight.position.set( -650, -400, 580 );
-				spotLight.position.set( -25, 30, 60 );
-				//spotLight.shadow.mapSize.width = 524;
-				//spotLight.shadow.mapSize.height = 524;
-				spotLight.shadow.mapSize.width = 50;
-				spotLight.shadow.mapSize.height = 50;
-					//spotLight.angle = 0.5;
-				spotLight.angle = 0.35;
-				//spotLight.shadow.camera.near = 100;
-				spotLight.shadow.camera.near = 50;
-				//spotLight.shadow.camera.far = 4000;
-				spotLight.shadow.camera.far = 20;
-				spotLight.shadow.camera.fov = 10;
+//				spotLight_left = new THREE.SpotLight( 0x626262 );
+//				spotLight_left.castShadow = true;
+//				spotLight_left.position.set( -35, 35, 50 );
+//				spotLight_left.shadow.mapSize.width = 150;
+//				spotLight_left.shadow.mapSize.height = 150;
+//				spotLight_left.angle = 0.35;
+//				spotLight_left.shadow.camera.near = 50;
+//				spotLight_left.shadow.camera.far = 50;
+//				spotLight_left.shadow.camera.fov = 50;
+//
+//				scene.add( spotLight_left );
+				
+				
+//				spotLight_right = new THREE.SpotLight( 0x080808 );
+//				spotLight_right.castShadow = true;
+//				spotLight_right.position.set( 80, -150, -100 );
+//				spotLight_right.shadow.mapSize.width = 100;
+//				spotLight_right.shadow.mapSize.height = 100;
+//				spotLight_right.angle = 0.45;
+//				spotLight_right.shadow.camera.near = 50;
+//				spotLight_right.shadow.camera.far = 250;
+//				spotLight_right.shadow.camera.fov = 450;
+//
+//				scene.add( spotLight_right );
 
-				scene.add( spotLight );
+//				spotLight_leftHelper = new THREE.SpotLightHelper( spotLight_left );
+//				scene.add( spotLight_leftHelper );
+//				spotLight_rightHelper = new THREE.SpotLightHelper( spotLight_right );
+//				scene.add( spotLight_rightHelper );
+				
+				spotLight_top = new THREE.SpotLight( 0x525252 );
+				spotLight_top.castShadow = true;
+				spotLight_top.position.set( -30, -5, -100 );
+				spotLight_top.shadow.mapSize.width = 150;
+				spotLight_top.shadow.mapSize.height = 150;
+				spotLight_top.angle = 2;
+				spotLight_top.shadow.camera.near = 50;
+				spotLight_top.shadow.camera.far = 50;
+				spotLight_top.shadow.camera.fov = 50;
 
-				spotLightHelper = new THREE.SpotLightHelper( spotLight );
-				scene.add( spotLightHelper );
+				scene.add( spotLight_top );
+
+				//spotLight_topHelper = new THREE.SpotLightHelper( spotLight_top );
+				//scene.add( spotLight_topHelper );
 
 				document.body.appendChild(renderer.domElement);
+				window.addEventListener( 'wheel', onMouseWheel, false );
 
 				//controls = new THREE.OrbitControls( camera, renderer.domElement);
 
 
+			}
+			
+			function onMouseWheel( event ) {
+
+				event.preventDefault();
+				for(i = 0; i < 20; i++){
+					if (model_right.rotation.z > 0.035){//0.048
+						model_right.rotation.z = 0.0;
+						model_right.position.y = 0.0;
+						model_right.position.x = 0.0
+						model_right.rotation.y = 0.0;
+					}
+
+					model_right.rotation.z += 0.0001;
+					model_right.position.x += 0.0012;//0.0008
+					model_right.position.y -= 0.007;//0.005
+					model_right.rotation.y += 0.00001;
+
+
+					if (model_left.rotation.z < -0.0028){//-0.0025
+						model_left.rotation.y = 0.0;
+						model_left.rotation.x = 0.0;
+						model_left.position.y = 0.0;
+						model_left.rotation.z = 0.0;
+					}
+
+					model_left.rotation.y -= 0.000045;
+					model_left.rotation.x += 0.00015;
+					model_left.position.y -=0.007;
+					model_left.rotation.z -= 0.00001;
+				}
+				
 			}
 
 			function animate() {
@@ -154,10 +232,35 @@
 			}
 
 			function render() {
-				console.log( camera.position )
-				console.log( camera.rotation )
-				//cylinder_group.rotation.z -= 0.0001;
-				//box_group.rotation.z += 0.0001;
+				
+//				if (model_right.rotation.z > 0.035){//0.048
+//					model_right.rotation.z = 0.0;
+//					model_right.position.y = 0.0;
+//					model_right.position.x = 0.0
+//					model_right.rotation.y = 0.0;
+//				}
+//				
+//				model_right.rotation.z += 0.0001;
+//				model_right.position.x += 0.0012;//0.0008
+//				model_right.position.y -= 0.007;//0.005
+//				model_right.rotation.y += 0.00001;
+//				
+//				
+//				if (model_left.rotation.z < -0.0028){//-0.0025
+//					model_left.rotation.y = 0.0;
+//					model_left.rotation.x = 0.0;
+//					model_left.position.y = 0.0;
+//					model_left.rotation.z = 0.0;
+//				}
+//				
+//				model_left.rotation.y -= 0.000045;
+//				model_left.rotation.x += 0.00015;
+//				model_left.position.y -=0.007;
+//				model_left.rotation.z -= 0.00001;
+				
+				//console.log( camera.position );
+				//console.log( camera.rotation );
+				
 				renderer.render(scene, camera);
 
 			}
