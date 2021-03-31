@@ -301,7 +301,7 @@
 			scene.add(spotLight_box_Helper);
 
 			document.body.appendChild(renderer.domElement);
-			//window.addEventListener('wheel', onMouseWheel, false);
+			window.addEventListener('wheel', onMouseWheel, false);
 
 			//controls = new THREE.OrbitControls(camera, renderer.domElement);
 			addDatGui();
@@ -313,16 +313,19 @@
 
 			event.preventDefault();
 			for (i = 0; i < 10; i++) {
-				//box_group.rotation.z += 0.0001;
-				//cylinder_group.rotation.z -= 0.0001;
+				box_group.rotation.z += 0.0001;
+				//cylinder_group.position.z -= 0.01;
+				//cylinder_group.position.y -= 0.01;
 			}
 			for (i = 0; i < 100; i++) {
-				//box_group.rotation.z += 0.00005;
-				//cylinder_group.rotation.z -= 0.00005;
+				box_group.rotation.z += 0.00005;
+				//cylinder_group.position.z -= 0.05;
+				//cylinder_group.position.y -= 0.05;
 			}
 			for (i = 0; i < 100; i++) {
-				//box_group.rotation.z += 0.00003;
-				//cylinder_group.rotation.z -= 0.00003;
+				box_group.rotation.z += 0.00003;
+				//cylinder_group.position.z -= 0.001;
+				//cylinder_group.position.y -= 0.001;
 			}
 
 		}
