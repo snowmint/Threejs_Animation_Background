@@ -39,6 +39,10 @@
 			color: #6f7896;
 			box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.54), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 		}
+		
+		canvas{
+		    overflow : scroll;
+		}
 	</style>
 </head>
 
@@ -51,7 +55,7 @@
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 	<script src="https://threejs.org/examples/js/libs/dat.gui.min.js"></script>
 
-	<script>
+	<script class="canvas">
 		javascript: (function() {
 			var script = document.createElement('script');
 			script.onload = function() {
@@ -185,6 +189,7 @@
 				geometry_cy = new THREE.CylinderGeometry(cylinder_radius * 3, cylinder_radius * 3, 2, 100);
 				material_cy = new THREE.MeshLambertMaterial({
 					color: 0xffffff,
+					transparent: true,
 				});
 				
 				tempGeo = new THREE.Mesh(geometry_cy, material_cy);
