@@ -197,14 +197,8 @@
 				add_box_mesh = new THREE.Mesh(add_box, material_cy);
 				add_box_mesh.position.x += 200;
 				add_box_mesh.position.z += 500;
-				//add_box_mesh.position.x += 200;
-				//add_box_mesh.position.z += 200;
 				mesh_test_group.add(add_box_mesh);
 				
-				//scene.add(add_box_mesh);
-				//tempGeo.updateMatrix();
-				//add_box.merge(tempGeo.geometry, tempGeo.matrix);
-
 				cylinder_group[i] = mesh_test_group;//new THREE.Mesh(add_box, material_cy);
 				
 				if (i - (divide / 2) > 0) {
@@ -289,7 +283,7 @@
 			spotLight_box.castShadow = true;
 			//spotLight_box.position.set(354.3, 729.3, 1000);
 			//spotLight_box.position.set(-1000, 45.5, -1600);
-			spotLight_box.position.set(-3000, 1195.2, 2386.3);
+			spotLight_box.position.set(-3000, 1200.2, 2386.3);
 			//spotLight_box.rotation.set(0, 0, 0);
 			spotLight_box.shadow.mapSize.width = 50;
 			spotLight_box.shadow.mapSize.height = 50;
@@ -315,7 +309,7 @@
 
 		function onMouseWheel(event) {
 
-			event.preventDefault();
+			//event.preventDefault();
 			console.log(cylinder_group.position.x);
 			console.log(cylinder_group.position.z);
 			
