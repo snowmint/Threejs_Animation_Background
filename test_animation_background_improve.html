@@ -40,9 +40,6 @@
 			box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.54), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 		}
 		
-		canvas{
-		    overflow : scroll;
-		}
 	</style>
 </head>
 
@@ -55,7 +52,7 @@
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 	<script src="https://threejs.org/examples/js/libs/dat.gui.min.js"></script>
 
-	<script class="canvas">
+	<script>
 		javascript: (function() {
 			var script = document.createElement('script');
 			script.onload = function() {
@@ -305,7 +302,8 @@
 
 			document.body.appendChild(renderer.domElement);
 			window.addEventListener('wheel', onMouseWheel, false);
-
+			//document.addEventListener('touchmove', function(e) {e.preventDefault();}, true);
+			window.addEventListener('touchmove', onMouseWheel, false);
 			//controls = new THREE.OrbitControls(camera, renderer.domElement);
 			addDatGui();
 
