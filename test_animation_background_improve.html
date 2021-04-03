@@ -353,7 +353,7 @@
 
 			document.body.appendChild(renderer.domElement);
 			window.addEventListener('wheel', onMouseWheel, false);
-			window.addEventListener('touchmove', onMouseWheel, false);
+			window.addEventListener('touchmove', onTouchMove, false);
 			addDatGui();
 			//controls = new THREE.OrbitControls( camera, renderer.domElement);
 
@@ -364,13 +364,13 @@
 		var offset_momentum = 0
 
 		function onMouseWheel(event) {
-
-			//event.preventDefault();
 			console.log(cylinder_group.position.x);
 			console.log(cylinder_group.position.z);
-
-			offset_momentum += 0.1
-
+			offset_momentum += 0.1;
+		}
+		
+		function onTouchMove(event) {
+			offset_momentum += 0.01;
 		}
 
 		function animate() {
