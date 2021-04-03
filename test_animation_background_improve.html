@@ -71,7 +71,7 @@
 
 		var camera, scene, renderer, geometry, material, mesh, cylinder_group, box_group, controls;
 		var PI = Math.PI;
-		var spotLight, spotLight_box;
+		var spotLight, spotLight_box, light_ambient;
 		init();
 		animate();
 
@@ -88,18 +88,18 @@
 			camera_rotation_control.add(camera.rotation, 'y', -500, 500).step(0.1);
 			camera_rotation_control.add(camera.rotation, 'z', -500, 500).step(0.1);
 
-			var spotLight_box_position_control = gui.addFolder('spotlight_box_position');
-			spotLight_box_position_control.add(spotLight_box.position, 'x', -3000, 3000).step(0.1);
-			spotLight_box_position_control.add(spotLight_box.position, 'y', -3000, 3000).step(0.1);
-			spotLight_box_position_control.add(spotLight_box.position, 'z', -3000, 3000).step(0.1);
+			var spotLight_position_control = gui.addFolder('spotLight_position');
+			spotLight_position_control.add(spotLight.position, 'x', -3000, 3000).step(0.1);
+			spotLight_position_control.add(spotLight.position, 'y', -3000, 3000).step(0.1);
+			spotLight_position_control.add(spotLight.position, 'z', -3000, 3000).step(0.1);
 
-			var spotlight_position_control = gui.addFolder('spotlight_position');
-			spotlight_position_control.add(spotLight.position, 'x', -3000, 3000).step(0.001);
-			spotlight_position_control.add(spotLight.position, 'y', -3000, 3000).step(0.001);
-			spotlight_position_control.add(spotLight.position, 'z', -3000, 3000).step(0.001);
-			spotlight_position_control.add(spotLight, 'distance', 0.0, 200).step(0.001);
-			//spotlight_position_control.add(spotLight.position, 'y', -3000, 3000).step(0.001);
-			//spotlight_position_control.add(spotLight.position, 'z', -3000, 3000).step(0.001);
+			var spotlight_position_control = gui.addFolder('spotLight_box_top_position');
+			spotlight_position_control.add(spotLight_box_top.position, 'x', -3000, 3000).step(0.001);
+			spotlight_position_control.add(spotLight_box_top.position, 'y', -3000, 3000).step(0.001);
+			spotlight_position_control.add(spotLight_box_top.position, 'z', -3000, 3000).step(0.001);
+			spotlight_position_control.add(spotLight_box_top, 'distance', 0.0, 200).step(0.001);
+//			spotlight_position_control.add(spotLight_box.position, 'y', -3000, 3000).step(0.001);
+//			spotlight_position_control.add(spotLight_box.position, 'z', -3000, 3000).step(0.001);
 
 			var cylinder_group_position_control = gui.addFolder('cylinder_group_position');
 			cylinder_group_position_control.add(cylinder_group.position, 'x', -1000, 1000).step(0.1);
@@ -166,10 +166,9 @@
 			document.body.appendChild(renderer.domElement);
 			renderer.setSize(width, height);
 
-
 			scene = new THREE.Scene();
 
-			const light_ambient = new THREE.AmbientLight(0x7c7c7c); //0xeef2ff
+			light_ambient = new THREE.AmbientLight(0xb5b5b5); //0xeef2ff
 			scene.add(light_ambient);
 
 			camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
@@ -181,11 +180,9 @@
 
 			cylinder_radius = 100;
 			cylinder_group = new THREE.Group();
-			divide = 80;
+			divide = 45;
 
 			half_divide = divide
-
-
 
 			for (i = 0; i < divide; i++) {
 				geometry_cy = new THREE.CylinderGeometry(cylinder_radius * 3, cylinder_radius * 3, 2, 100);
@@ -200,20 +197,22 @@
 				mesh_test_group.add(tempGeo);
 				
 				
-				add_box = new THREE.BoxGeometry(1000, 2, 1000, 32);
+				//add_box = new THREE.BoxGeometry(500, 2, 500, 32);
+				add_box = new THREE.BoxGeometry(300, 2, 300, 32);
 				add_box_mesh = new THREE.Mesh(add_box, material_cy);
-				add_box_mesh.position.x = 200;
-				add_box_mesh.position.z = 500;
+				add_box_mesh.rotation.y -= Math.PI/4;
+				//add_box_mesh.position.x = 150;
+				add_box_mesh.position.x = 9;
+				//add_box_mesh.position.z = 220;
+				add_box_mesh.position.z = 220;
 				mesh_test_group.add(add_box_mesh);
 
 				cylinder_group[i] = mesh_test_group;
 
 				cylinder_group[i].receiveShadow = true;
+				cylinder_group[i].castShadow = true;
 				cylinder_group.add(cylinder_group[i])
 			}
-
-
-
 
 			set_cylinder_position()
 
@@ -221,7 +220,6 @@
 			cylinder_group.rotation.set(-0.407, 0.009, -0.823);
 
 			scene.add(cylinder_group)
-
 
 			box_group = new THREE.Group();
 			divide_2 = 50;
@@ -235,39 +233,84 @@
 
 				box_group[i].rotation.z = i * (Math.PI / divide_2);
 				box_group[i].receiveShadow = true;
-				//box_group[i].castShadow = true;
+				box_group[i].castShadow = true;
 				box_group.add(box_group[i])
 			}
 			box_group.rotation.set(-0.269, -0.961, 0);
 			box_group.position.set(-64.8, 133.7, -197.1);
-			scene.add(box_group)
+			scene.add(box_group);
+			
+			spotLight = new THREE.SpotLight( 0xb9b9b9 );
+			//spotLight.position.set( 300, 250, 50 );
+			//spotLight.position.set( 864.4, 1592.2, 3000 );
+			//spotLight.position.set( -988.4, 798.2, -798.9 );
+			spotLight.position.set( 864.4, 1327.5, -525.2 );
+			
+			const targetObject = new THREE.Object3D();
+			targetObject.position.set(250, 50, 50);
+			scene.add(targetObject);
 
-
-			spotLight = new THREE.SpotLight(0xcccccc);
+			spotLight.target = targetObject;
+			scene.add(spotLight.target);
+			
+			spotLight.angle = 0.85;
+			spotLight.penumbra = 0.8;
+			spotLight.distance = 1500;
 			spotLight.castShadow = true;
-			//spotLight.position.set( -650, -400, 580 );
-			//spotLight.position.set(-439, 133.7, 1.4);
-			//spotLight.position.set(-329.5, -307.4, -1000);
-			//spotLight.position.set(596.91, 1200, 1100);
-			spotLight.position.set(930.52, 930.52, 1658.3);
-			spotLight.shadow.mapSize.width = 50;
-			spotLight.shadow.mapSize.height = 50;
-			spotLight.angle = 0.35;
-			spotLight.target = cylinder_group;
-			spotLight.shadow.camera.near = 250;
-			spotLight.shadow.camera.far = 150;
-			spotLight.shadow.camera.fov = 50;
 
-			scene.add(spotLight);
+			spotLight.shadow.mapSize.width = 1024;
+			spotLight.shadow.mapSize.height = 1024;
 
-			spotLightHelper = new THREE.SpotLightHelper(spotLight);
-			scene.add(spotLightHelper);
+			spotLight.shadow.camera.near = 100;
+			spotLight.shadow.camera.far = 50;
+			spotLight.shadow.camera.fov = 30;
+			scene.add( spotLight );
+
+			const spotLightHelper = new THREE.SpotLightHelper( spotLight );
+			scene.add( spotLightHelper );
+			
+			const point_light = new THREE.PointLight( 0x909090, 1, 500 );
+			point_light.castShadow = true;
+			point_light.position.set( 300, 100, 50 );
+			scene.add( point_light );
+			point_lightHelper = new THREE.PointLightHelper(point_light);
+			scene.add(point_lightHelper);
+			
+			const point_light_top = new THREE.PointLight( 0xffffff, 1, 500 );
+			point_light_top.castShadow = true;
+			point_light_top.position.set( -200, 550, -300 );
+			scene.add( point_light_top );
+			point_light_top_lightHelper = new THREE.PointLightHelper(point_light_top);
+			scene.add(point_light_top_lightHelper);
+
+
+//			spotLight = new THREE.SpotLight(0xcccccc);
+//			spotLight.castShadow = true;
+//			//spotLight.position.set( -650, -400, 580 );
+//			//spotLight.position.set(-439, 133.7, 1.4);
+//			//spotLight.position.set(-329.5, -307.4, -1000);
+//			//spotLight.position.set(596.91, 1200, 1100);
+//			spotLight.position.set(930.52, 930.52, 1658.3);
+//			spotLight.shadow.mapSize.width = 50;
+//			spotLight.shadow.mapSize.height = 50;
+//			spotLight.angle = 0.35;
+//			spotLight.target = cylinder_group;
+//			spotLight.shadow.camera.near = 250;
+//			spotLight.shadow.camera.far = 150;
+//			spotLight.shadow.camera.fov = 50;
+//
+//			scene.add(spotLight);
+//
+//			spotLightHelper = new THREE.SpotLightHelper(spotLight);
+//			scene.add(spotLightHelper);
 
 			spotLight_box = new THREE.SpotLight(0xcccccc);
 			spotLight_box.castShadow = true;
 			//spotLight_box.position.set(354.3, 729.3, 1000);
 			//spotLight_box.position.set(-1000, 45.5, -1600);
-			spotLight_box.position.set(-3000, 1200.2, 2386.3);
+			//spotLight_box.position.set(-3000, 1200.2, 2386.3);
+			//spotLight_box.position.set(-3000, 1327.5, 3000);
+			spotLight_box.position.set(-2113.3, -1253.56, 1062.8);
 			spotLight_box.shadow.mapSize.width = 50;
 			spotLight_box.shadow.mapSize.height = 50;
 			spotLight_box.target = box_group;
@@ -280,6 +323,33 @@
 
 			spotLight_box_Helper = new THREE.SpotLightHelper(spotLight_box);
 			scene.add(spotLight_box_Helper);
+			
+			spotLight_box_top = new THREE.SpotLight(0xcccccc);
+			spotLight_box_top.castShadow = true;
+			
+			const targetObject2 = new THREE.Object3D();
+			targetObject2.position.set(-350, 50, -250);
+			scene.add(targetObject2);
+
+			spotLight_box_top.target = targetObject2;
+			scene.add(spotLight_box_top.target);
+			//spotLight_box.position.set(354.3, 729.3, 1000);
+			//spotLight_box.position.set(-1000, 45.5, -1600);
+			//spotLight_box.position.set(-3000, 1200.2, 2386.3);
+			//spotLight_box.position.set(-3000, 1327.5, 3000);
+			spotLight_box_top.position.set(-1716.2, -1253.56, 798.18);
+			spotLight_box_top.shadow.mapSize.width = 50;
+			spotLight_box_top.shadow.mapSize.height = 50;
+			spotLight_box_top.target = box_group;
+			spotLight_box_top.angle = 0.25;
+			spotLight_box_top.shadow.camera.near = 250;
+			spotLight_box_top.shadow.camera.far = 150;
+			spotLight_box_top.shadow.camera.fov = 50;
+
+			scene.add(spotLight_box_top);
+
+			spotLight_box_top_Helper = new THREE.SpotLightHelper(spotLight_box_top);
+			scene.add(spotLight_box_top_Helper);
 
 			document.body.appendChild(renderer.domElement);
 			window.addEventListener('wheel', onMouseWheel, false);
@@ -309,15 +379,23 @@
 			box_group.rotation.z = - offset * PI  / divide_2
 
 			set_cylinder_position(offset % 1) // 這邊的取餘數是關鍵，因為 offset 的週期是1 (offset=1與offset=2畫面看起來相同)
-
-			requestAnimationFrame(animate);
-			render();
+			
+//			requestAnimationFrame(animate);
+			render(animate); //效能提升，渲染次數減半
 
 		}
-
-		function render() {
-			renderer.render(scene, camera);
-
+		
+		var skip;
+		
+		function render(animate) {
+			if(skip !== 0) {
+				renderer.render(scene, camera);
+				requestAnimationFrame(animate);
+				skip = ++skip % 2;
+				return;
+			} else {
+				skip = ++skip % 2;
+			}
 		}
 	</script>
 </body>
