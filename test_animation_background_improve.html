@@ -39,6 +39,7 @@
 			color: #6f7896;
 			box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.54), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 		}
+
 	</style>
 </head>
 
@@ -47,27 +48,24 @@
         <div id='info'> DESCENDANTS<br>OF THE ABACUS <br>
         </div>
 -->
-	<script
-		src="https://threejs.org/build/three.min.js"></script>
-	<script
-		src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-	<script
-		src="https://threejs.org/examples/js/libs/dat.gui.min.js"></script>
+	<script src="https://threejs.org/build/three.min.js"></script>
+	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+	<script src="https://threejs.org/examples/js/libs/dat.gui.min.js"></script>
 
 	<script>
-//		javascript: (function () {
-//			var script = document.createElement('script');
-//			script.onload = function () {
-//				var stats = new Stats();
-//				document.body.appendChild(stats.dom);
-//				requestAnimationFrame(function loop() {
-//					stats.update();
-//					requestAnimationFrame(loop)
-//				});
-//			};
-//			script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js';
-//			document.head.appendChild(script);
-//		})() //左上角顯示 status 數據
+		//		javascript: (function () {
+		//			var script = document.createElement('script');
+		//			script.onload = function () {
+		//				var stats = new Stats();
+		//				document.body.appendChild(stats.dom);
+		//				requestAnimationFrame(function loop() {
+		//					stats.update();
+		//					requestAnimationFrame(loop)
+		//				});
+		//			};
+		//			script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js';
+		//			document.head.appendChild(script);
+		//		})() //左上角顯示 status 數據
 
 		var camera, scene, renderer, geometry, material, mesh, cylinder_group, box_group, controls;
 		var PI = Math.PI;
@@ -98,8 +96,8 @@
 			spotlight_position_control.add(spotLight_box_top.position, 'y', -3000, 3000).step(0.001);
 			spotlight_position_control.add(spotLight_box_top.position, 'z', -3000, 3000).step(0.001);
 			spotlight_position_control.add(spotLight_box_top, 'distance', 0.0, 200).step(0.001);
-//			spotlight_position_control.add(spotLight_box.position, 'y', -3000, 3000).step(0.001);
-//			spotlight_position_control.add(spotLight_box.position, 'z', -3000, 3000).step(0.001);
+			//			spotlight_position_control.add(spotLight_box.position, 'y', -3000, 3000).step(0.001);
+			//			spotlight_position_control.add(spotLight_box.position, 'z', -3000, 3000).step(0.001);
 
 			var cylinder_group_position_control = gui.addFolder('cylinder_group_position');
 			cylinder_group_position_control.add(cylinder_group.position, 'x', -1000, 1000).step(0.1);
@@ -192,15 +190,15 @@
 				});
 
 				tempGeo = new THREE.Mesh(geometry_cy, material_cy);
-				
+
 				mesh_test_group = new THREE.Group();
 				mesh_test_group.add(tempGeo);
-				
-				
+
+
 				//add_box = new THREE.BoxGeometry(500, 2, 500, 32);
-				add_box = new THREE.BoxGeometry(300, 2, 300, 32);//縮減 geometry 大小
+				add_box = new THREE.BoxGeometry(300, 2, 300, 32); //縮減 geometry 大小
 				add_box_mesh = new THREE.Mesh(add_box, material_cy);
-				add_box_mesh.rotation.y -= Math.PI/4;
+				add_box_mesh.rotation.y -= Math.PI / 4;
 				//add_box_mesh.position.x = 150;
 				add_box_mesh.position.x = 9;
 				//add_box_mesh.position.z = 220;
@@ -222,7 +220,7 @@
 			scene.add(cylinder_group)
 
 			box_group = new THREE.Group();
-			divide_2 = 50;//縮減 geometry 數量
+			divide_2 = 50; //縮減 geometry 數量
 			for (i = 0; i < divide_2; i++) {
 				geometry_bx = new THREE.BoxGeometry(255, 1, 300, 200);
 				material_bx = new THREE.MeshLambertMaterial({
@@ -239,20 +237,20 @@
 			box_group.rotation.set(-0.269, -0.961, 0);
 			box_group.position.set(-64.8, 133.7, -197.1);
 			scene.add(box_group);
-			
-			spotLight = new THREE.SpotLight( 0xb9b9b9 );
+
+			spotLight = new THREE.SpotLight(0xb9b9b9);
 			//spotLight.position.set( 300, 250, 50 );
 			//spotLight.position.set( 864.4, 1592.2, 3000 );
 			//spotLight.position.set( -988.4, 798.2, -798.9 );
-			spotLight.position.set( 864.4, 1327.5, -525.2 );
-			
+			spotLight.position.set(864.4, 1327.5, -525.2);
+
 			const targetObject = new THREE.Object3D();
 			targetObject.position.set(250, 50, 50);
 			scene.add(targetObject);
 
 			spotLight.target = targetObject;
 			scene.add(spotLight.target);
-			
+
 			spotLight.angle = 0.85;
 			spotLight.penumbra = 0.8;
 			spotLight.distance = 1500;
@@ -264,45 +262,45 @@
 			spotLight.shadow.camera.near = 100;
 			spotLight.shadow.camera.far = 50;
 			spotLight.shadow.camera.fov = 30;
-			scene.add( spotLight );
+			scene.add(spotLight);
 
-			const spotLightHelper = new THREE.SpotLightHelper( spotLight );
-			scene.add( spotLightHelper );
-			
-			const point_light = new THREE.PointLight( 0x909090, 1, 500 );
+			const spotLightHelper = new THREE.SpotLightHelper(spotLight);
+			scene.add(spotLightHelper);
+
+			const point_light = new THREE.PointLight(0x909090, 1, 500);
 			point_light.castShadow = true;
-			point_light.position.set( 300, 100, 50 );
-			scene.add( point_light );
+			point_light.position.set(300, 100, 50);
+			scene.add(point_light);
 			point_lightHelper = new THREE.PointLightHelper(point_light);
 			scene.add(point_lightHelper);
-			
-			const point_light_top = new THREE.PointLight( 0xffffff, 1, 500 );
+
+			const point_light_top = new THREE.PointLight(0xffffff, 1, 500);
 			point_light_top.castShadow = true;
-			point_light_top.position.set( -200, 550, -300 );
-			scene.add( point_light_top );
+			point_light_top.position.set(-200, 550, -300);
+			scene.add(point_light_top);
 			point_light_top_lightHelper = new THREE.PointLightHelper(point_light_top);
 			scene.add(point_light_top_lightHelper);
 
 
-//			spotLight = new THREE.SpotLight(0xcccccc);
-//			spotLight.castShadow = true;
-//			//spotLight.position.set( -650, -400, 580 );
-//			//spotLight.position.set(-439, 133.7, 1.4);
-//			//spotLight.position.set(-329.5, -307.4, -1000);
-//			//spotLight.position.set(596.91, 1200, 1100);
-//			spotLight.position.set(930.52, 930.52, 1658.3);
-//			spotLight.shadow.mapSize.width = 50;
-//			spotLight.shadow.mapSize.height = 50;
-//			spotLight.angle = 0.35;
-//			spotLight.target = cylinder_group;
-//			spotLight.shadow.camera.near = 250;
-//			spotLight.shadow.camera.far = 150;
-//			spotLight.shadow.camera.fov = 50;
-//
-//			scene.add(spotLight);
-//
-//			spotLightHelper = new THREE.SpotLightHelper(spotLight);
-//			scene.add(spotLightHelper);
+			//			spotLight = new THREE.SpotLight(0xcccccc);
+			//			spotLight.castShadow = true;
+			//			//spotLight.position.set( -650, -400, 580 );
+			//			//spotLight.position.set(-439, 133.7, 1.4);
+			//			//spotLight.position.set(-329.5, -307.4, -1000);
+			//			//spotLight.position.set(596.91, 1200, 1100);
+			//			spotLight.position.set(930.52, 930.52, 1658.3);
+			//			spotLight.shadow.mapSize.width = 50;
+			//			spotLight.shadow.mapSize.height = 50;
+			//			spotLight.angle = 0.35;
+			//			spotLight.target = cylinder_group;
+			//			spotLight.shadow.camera.near = 250;
+			//			spotLight.shadow.camera.far = 150;
+			//			spotLight.shadow.camera.fov = 50;
+			//
+			//			scene.add(spotLight);
+			//
+			//			spotLightHelper = new THREE.SpotLightHelper(spotLight);
+			//			scene.add(spotLightHelper);
 
 			spotLight_box = new THREE.SpotLight(0xcccccc);
 			spotLight_box.castShadow = true;
@@ -323,10 +321,10 @@
 
 			spotLight_box_Helper = new THREE.SpotLightHelper(spotLight_box);
 			scene.add(spotLight_box_Helper);
-			
+
 			spotLight_box_top = new THREE.SpotLight(0xcccccc);
 			spotLight_box_top.castShadow = true;
-			
+
 			const targetObject2 = new THREE.Object3D();
 			targetObject2.position.set(-350, 50, -250);
 			scene.add(targetObject2);
@@ -352,43 +350,67 @@
 			scene.add(spotLight_box_top_Helper);
 
 			document.body.appendChild(renderer.domElement);
-			window.addEventListener('wheel', onMouseWheel, false);
-			window.addEventListener('touchmove', onTouchMove, false);
+			//window.addEventListener('wheel', onMouseWheel, false);
+			//window.addEventListener('touchmove', onTouchMove, false);
+			var pre_screenY = 0;
+			window.addEventListener("touchmove", event => {
+				const delta = event.touches[0].screenY - pre_screenY;
+				if(delta < 0){
+					console.log('up');
+					offset_momentum -= 0.005;
+				}
+				else if(delta >= 0){
+					console.log('down');
+					offset_momentum += 0.005;
+				}
+				pre_screenY = event.touches[0].screenY;
+			});
+			
+			window.addEventListener("wheel", event => {
+				const delta = Math.sign(event.deltaY);
+				console.log(delta);
+				if(delta == -1){
+					console.log('up');
+					offset_momentum -= 0.05;
+				}
+				else if(delta == 1){
+					console.log('down');
+					offset_momentum += 0.05;
+				}
+			});
 			//addDatGui(); //移除右上 gui control 面板
-			//controls = new THREE.OrbitControls( camera, renderer.domElement);
-
-
+			//controls = new THREE.OrbitControls( camera, renderer.domElement); //for 旋轉各角度方便調整整體
 		}
 
-		var offset = 0
-		var offset_momentum = 0
+		var offset = 0;
+		var offset_momentum = 0;
 
-		function onMouseWheel(event) {
-			//console.log(cylinder_group.position.x);
-			//console.log(cylinder_group.position.z);
-			offset_momentum += 0.05; //降低轉動速率
-		}
-		
-		function onTouchMove(event) {
-			offset_momentum += 0.05; //降低轉動速率
-		}
+//		function onMouseWheel(event) {
+//			//console.log(cylinder_group.position.x);
+//			//console.log(cylinder_group.position.z);
+//			offset_momentum += 0.05; //降低轉動速率
+//		}
+
+//		function onTouchMove(event) {
+//			offset_momentum += 0.05; //降低轉動速率
+//		}
 
 		function animate() {
 			offset += offset_momentum
 			offset_momentum *= 0.9
-			box_group.rotation.z = - offset * PI  / divide_2
+			box_group.rotation.z = -offset * PI / divide_2
 
 			set_cylinder_position(offset % 1) // 這邊的取餘數是關鍵，因為 offset 的週期是1 (offset=1與offset=2畫面看起來相同)
-			
-//			requestAnimationFrame(animate);
+
+			//			requestAnimationFrame(animate);
 			render(animate); //效能提升，渲染次數減半
 
 		}
-		
+
 		var skip;
-		
+
 		function render(animate) {
-			if(skip !== 0) {
+			if (skip !== 0) {
 				renderer.render(scene, camera);
 				requestAnimationFrame(animate);
 				skip = ++skip % 2;
@@ -397,6 +419,7 @@
 				skip = ++skip % 2;
 			}
 		}
+
 	</script>
 </body>
 
