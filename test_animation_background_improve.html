@@ -55,19 +55,19 @@
 		src="https://threejs.org/examples/js/libs/dat.gui.min.js"></script>
 
 	<script>
-		javascript: (function () {
-			var script = document.createElement('script');
-			script.onload = function () {
-				var stats = new Stats();
-				document.body.appendChild(stats.dom);
-				requestAnimationFrame(function loop() {
-					stats.update();
-					requestAnimationFrame(loop)
-				});
-			};
-			script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js';
-			document.head.appendChild(script);
-		})()
+//		javascript: (function () {
+//			var script = document.createElement('script');
+//			script.onload = function () {
+//				var stats = new Stats();
+//				document.body.appendChild(stats.dom);
+//				requestAnimationFrame(function loop() {
+//					stats.update();
+//					requestAnimationFrame(loop)
+//				});
+//			};
+//			script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js';
+//			document.head.appendChild(script);
+//		})() //左上角顯示 status 數據
 
 		var camera, scene, renderer, geometry, material, mesh, cylinder_group, box_group, controls;
 		var PI = Math.PI;
@@ -198,7 +198,7 @@
 				
 				
 				//add_box = new THREE.BoxGeometry(500, 2, 500, 32);
-				add_box = new THREE.BoxGeometry(300, 2, 300, 32);
+				add_box = new THREE.BoxGeometry(300, 2, 300, 32);//縮減 geometry 大小
 				add_box_mesh = new THREE.Mesh(add_box, material_cy);
 				add_box_mesh.rotation.y -= Math.PI/4;
 				//add_box_mesh.position.x = 150;
@@ -222,7 +222,7 @@
 			scene.add(cylinder_group)
 
 			box_group = new THREE.Group();
-			divide_2 = 50;
+			divide_2 = 50;//縮減 geometry 數量
 			for (i = 0; i < divide_2; i++) {
 				geometry_bx = new THREE.BoxGeometry(255, 1, 300, 200);
 				material_bx = new THREE.MeshLambertMaterial({
@@ -354,7 +354,7 @@
 			document.body.appendChild(renderer.domElement);
 			window.addEventListener('wheel', onMouseWheel, false);
 			window.addEventListener('touchmove', onTouchMove, false);
-			addDatGui();
+			//addDatGui(); //移除右上 gui control 面板
 			//controls = new THREE.OrbitControls( camera, renderer.domElement);
 
 
@@ -364,13 +364,13 @@
 		var offset_momentum = 0
 
 		function onMouseWheel(event) {
-			console.log(cylinder_group.position.x);
-			console.log(cylinder_group.position.z);
-			offset_momentum += 0.1;
+			//console.log(cylinder_group.position.x);
+			//console.log(cylinder_group.position.z);
+			offset_momentum += 0.05; //降低轉動速率
 		}
 		
 		function onTouchMove(event) {
-			offset_momentum += 0.01;
+			offset_momentum += 0.05; //降低轉動速率
 		}
 
 		function animate() {
